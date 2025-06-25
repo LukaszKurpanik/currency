@@ -12,10 +12,12 @@ class MainController extends Controller
             $resultRate = json_decode($tableNBP,TRUE);
             foreach ($resultRate[0]["rates"] as $r){
                 $tableCurrencyCheck = \App\Models\Currency::where('currency_code', $r["code"])->first(); // sprawdzanie czy istnieje waluta w bazie
-                if ($tableCurrencyCheck) {                                                               // jeśli tak nadpisujemy kurs
+                if ($tableCurrencyCheck) {
+                    // jeśli wpis istnieje aktualizujemy kurs
                     $tableCurrencyCheck->currency_code = $r["code"];
+                    $tableCurrencyCheck->exchange_rate = $r["mid"];
                     $tableCurrencyCheck->save();
-                }else{                                                                                   // jeśli nie tworzymy nowy wpis w bazie
+                }else{
                     $tableCurrency = \App\Models\Currency::create([
                         'name' => $r["currency"],
                         'currency_code' => $r["code"],

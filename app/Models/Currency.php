@@ -8,6 +8,6 @@ class Currency extends Model
 {
     protected $table = 'currency';
     protected $primaryKey = 'id';
-    protected $guarded = ['	id'];
+    protected $guarded = ['id'];
     public $timestamps = false;
 }
